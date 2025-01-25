@@ -1,28 +1,30 @@
+import { refs } from './refs';
 
 export function renderRecipeList(resipes) {
-  const markup = resipes.map(({ image, name, cuisine, difficulty }) => {
-    `<li class="recipeCard">
-   <img class="gallery-img" src="${image}"/>
+  const markup = resipes
+    .map(({ image, name, cuisine, difficulty, id }) => {
+      return `<li class="recipeCard" data-id="${id}">
+   <img class="gallery-img" src="${image}" alt="${name}"/>
    <p class="name-text">Name:${name}</p>
    <p class="cuisine-text">Cuisine:${cuisine}</p>
    <p class="difficultiy-text">Difficultiy:${difficulty}</p>
   </li>`;
-  });
+    })
+    .join('');
 
-export function renderRecipesInModal(recipes) {
-  const recipesCard = recipes
-    .map(
-      ({
-        name,
-        image,
-        tags,
-        cuisine,
-        difficulty,
-        ingredients,
-        instructions,
-        rating,
-      }) =>
-        `<div class="modal-card">
+  refs.recipeList.insertAdjacentHTML('beforeend', markup);
+}
+export function renderRecipesInModal({
+  name,
+  image,
+  tags,
+  cuisine,
+  difficulty,
+  ingredients,
+  instructions,
+  rating,
+}) {
+  const recipesCard = `
               <img class="modal-img" src="${image}" alt="${tags}" width="360" height="200" title="" /></a>
             <div class="modal-info">
               <h3 class="modal-name">${name}</h3>
@@ -38,7 +40,7 @@ export function renderRecipesInModal(recipes) {
                   .join('')}</ul>
               <p class="modal-rating">${rating}</p>
             </div>
-        </div>`
-    )
-    .join('');
+        `;
+
+  refs.modalCard.innerHTML = recipesCard;
 }
