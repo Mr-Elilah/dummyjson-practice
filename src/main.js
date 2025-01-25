@@ -1,3 +1,6 @@
-import { getRecipeById } from './js/dummyJson-api';
+import { onDOMContentLoaded, onRecipeListItemClick } from './js/handlers';
+import { refs } from './js/refs';
 
-getRecipeById(1);
+document.addEventListener('DOMContentLoaded', onDOMContentLoaded);
+
+refs.recipeList.addEventListener('click', onRecipeListItemClick);
